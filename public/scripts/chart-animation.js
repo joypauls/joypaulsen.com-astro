@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 const SAMPLE_SIZE = 200;
 const BINS = 10;
@@ -32,25 +32,6 @@ function generateData(n = SAMPLE_SIZE, clip = true) {
     if (clip) sample = Math.max(Math.min(sample, bound), -bound);
     return { index: i, value: sample };
   });
-}
-
-function initChart({containerId}) {
-  const container = document.querySelector(containerId);
-  if (!container) return;
-  const wrapper = d3.select(container)
-    .append("svg")
-    .attr("width", DIMENSIONS.width)
-    .attr("height", DIMENSIONS.height)
-    .attr("id", "chart");
-
-  wrapper.append("g")
-    .style("transform", `translate(${DIMENSIONS.margin.left}px, ${DIMENSIONS.margin.top}px)`)
-    .attr("id", "chart-bounds")
-    .append("g")
-    .attr("id", "chart-bins");
-
-  drawChart();
-  setInterval(updateChart, 2000);
 }
 
 function drawChart() {
@@ -87,4 +68,24 @@ function updateChart() {
     .attr("height", d => DIMENSIONS.boundedHeight - yScale(yAccessor(d)));
 }
 
-export { initChart };
+function initChart({ containerId }) {
+  const container = document.querySelector(containerId);
+  if (!container) return;
+
+  const wrapper = d3.select(container)
+    .append("svg")
+    .attr("width", DIMENSIONS.width)
+    .attr("height", DIMENSIONS.height)
+    .attr("id", "chart");
+
+  wrapper.append("g")
+    .style("transform", `translate(${DIMENSIONS.margin.left}px, ${DIMENSIONS.margin.top}px)`)
+    .attr("id", "chart-bounds")
+    .append("g")
+    .attr("id", "chart-bins");
+
+  drawChart();
+  setInterval(updateChart, 2000);
+}
+
+initChart({ containerId: "#chart-wrapper" });

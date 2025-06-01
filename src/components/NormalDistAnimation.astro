@@ -1,10 +1,7 @@
 ---
-const { id = "chart-wrapper" } = Astro.props;
+
 ---
 
-<div id={id} class="w-fit"></div>
+<div id="chart-wrapper" class="w-fit"></div>
 
-<script type="module">
-  import { initChart } from "../scripts/chart-animation.js";
-  initChart({ containerId: "#chart-wrapper" });
-</script>
+<script type="module" src="/scripts/chart-animation.js"></script>
