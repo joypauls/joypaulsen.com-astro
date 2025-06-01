@@ -6,33 +6,33 @@ import VoltageAnimation from "../components/VoltageAnimation.astro";
 ---
 
 <div class="h-full">
-  <img id="background" src={background.src} alt="" fetchpriority="high" />
+  <!-- <img id="background" src={background.src} alt="" fetchpriority="high" /> -->
   <main class="h-full flex flex-col items-center justify-center">
     <NormalDistChart id="chart-wrapper" />
     <!-- <VoltageAnimation id="three-phase-chart" /> -->
 
     <div class="text-center mt-4 mb-6">
-      <h1 class="text-4xl font-bold">Joy Paulsen</h1>
+      <h1 class="text-4xl font-extrabold">Joy Paulsen</h1>
       <p class="text-lg font-thin">Data Scientist, Engineer, Builder</p>
     </div>
     <section
       id="links"
-      class="flex flex-col items-center min-w-[300px] gap-2 mb-8 font-semibold"
+      class="flex flex-col items-center min-w-[300px] gap-3 mb-8 font-semibold"
     >
       <a
-        class="button w-full flex justify-center"
+        class="button w-full flex justify-center rounded-full"
         href="https://docs.astro.build">About Me</a
       >
       <a
-        class="button w-full flex justify-center"
+        class="button w-full flex justify-center rounded-full"
         href="https://docs.astro.build">Blog</a
       >
       <a
-        class="button w-full flex justify-center"
+        class="button w-full flex justify-center rounded-full"
         href="https://docs.astro.build">Github</a
       >
       <a
-        class="button w-full flex justify-center"
+        class="button w-full flex justify-center rounded-full"
         href="https://docs.astro.build">LinkedIn</a
       >
       <!-- <a href="https://astro.build/chat"
@@ -85,16 +85,17 @@ import VoltageAnimation from "../components/VoltageAnimation.astro";
 
   #links a.button {
     color: white;
-    background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-    /* box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.24); */
-    border: 3px solid #5f4275;
+    /* background: #5f4275; */
+    /* background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%); */
+    background: linear-gradient(83.21deg, #6f32ff 0%, #21d5a2 100%);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.9);
+    /* box-shadow: inset -2px -5px 0 rgba(0, 0, 0, 0.24); */
+    border: 1px solid #000;
   }
 
   #links a.button:hover {
-    color: rgb(230, 230, 230);
-    box-shadow: none;
+    color: rgb(220, 220, 220);
+    /* box-shadow: none; */
   }
 
   h2 {
