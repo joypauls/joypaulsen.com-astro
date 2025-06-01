@@ -1,17 +1,41 @@
 ---
 import astroLogo from "../assets/astro.svg";
 import background from "../assets/background.svg";
+import NormalDistChart from "../components/NormalDistAnimation.astro";
+import VoltageAnimation from "../components/VoltageAnimation.astro";
 ---
 
-<div>
+<div class="h-full">
   <img id="background" src={background.src} alt="" fetchpriority="high" />
-  <main>
-    <section>
-      <h1 class="text-3xl font-bold">Joy Paulsen</h1>
-      <p class="text-lg">Data Scientist, Engineer, Builder</p>
-      <section id="links">
-        <a class="button" href="https://docs.astro.build">Read our docs</a>
-        <!-- <a href="https://astro.build/chat"
+  <main class="h-full flex flex-col items-center justify-center">
+    <NormalDistChart id="chart-wrapper" />
+    <!-- <VoltageAnimation id="three-phase-chart" /> -->
+
+    <div class="text-center mt-4 mb-6">
+      <h1 class="text-4xl font-bold">Joy Paulsen</h1>
+      <p class="text-lg font-thin">Data Scientist, Engineer, Builder</p>
+    </div>
+    <section
+      id="links"
+      class="flex flex-col items-center min-w-[300px] gap-2 mb-8 font-semibold"
+    >
+      <a
+        class="button w-full flex justify-center"
+        href="https://docs.astro.build">About Me</a
+      >
+      <a
+        class="button w-full flex justify-center"
+        href="https://docs.astro.build">Blog</a
+      >
+      <a
+        class="button w-full flex justify-center"
+        href="https://docs.astro.build">Github</a
+      >
+      <a
+        class="button w-full flex justify-center"
+        href="https://docs.astro.build">LinkedIn</a
+      >
+      <!-- <a href="https://astro.build/chat"
           >Join our Discord <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 127.14 96.36"
@@ -21,12 +45,18 @@ import background from "../assets/background.svg";
             ></path></svg
           >
         </a> -->
-      </section>
     </section>
   </main>
 </div>
 
 <style>
+  /* h1 {
+    color: #5f4275;
+  }
+  p {
+    color: #5f4275;
+  } */
+
   #background {
     position: fixed;
     top: 0;
@@ -37,14 +67,7 @@ import background from "../assets/background.svg";
     filter: blur(100px);
   }
 
-  #links {
-    display: flex;
-    gap: 16px;
-  }
-
   #links a {
-    display: flex;
-    align-items: center;
     padding: 10px 12px;
     color: #111827;
     text-decoration: none;
@@ -63,10 +86,10 @@ import background from "../assets/background.svg";
   #links a.button {
     color: white;
     background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-    box-shadow:
+    /* box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-      inset 0 -2px 0 rgba(0, 0, 0, 0.24);
-    border-radius: 10px;
+      inset 0 -2px 0 rgba(0, 0, 0, 0.24); */
+    border: 3px solid #5f4275;
   }
 
   #links a.button:hover {
@@ -83,10 +106,6 @@ import background from "../assets/background.svg";
 
   p {
     color: #4b5563;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.006em;
-    margin: 0;
   }
 
   .box {
@@ -101,8 +120,8 @@ import background from "../assets/background.svg";
       flex-wrap: wrap;
     }
 
-    #links a.button {
+    /* #links a.button {
       padding: 14px 18px;
-    }
+    } */
   }
 </style>

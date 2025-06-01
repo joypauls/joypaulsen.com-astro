@@ -1,0 +1,10 @@
+---
+const { id = "three-phase-chart" } = Astro.props;
+---
+
+<div id={id} class="w-full max-w-xl p-4 border rounded bg-white shadow"></div>
+
+<script type="module">
+  import { initChart } from "../src/scripts/voltage-animation.js";
+  initChart({ containerId: "#three-phase-chart" });
+</script>

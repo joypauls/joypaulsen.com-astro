@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+#chart-bins {
+    fill: #5f4275;
+    /* fill-opacity: 0.0; */
+    opacity: 0.9;
+    /* stroke: #1b042d */
+}
