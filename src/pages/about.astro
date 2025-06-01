@@ -1,0 +1,133 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Left from "../icons/left.svg";
+---
+
+<Layout title="About Me">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="w-full max-w-4xl px-6 py-8">
+      <section class="space-y-6 mb-24">
+        <a
+          class="button flex justify-center items-center rounded-none py-2 px-6 w-fit"
+          href="/"
+          ><div class="w-5 h-5 mr-1">
+            <Left style="height: 100%; width: 100%;" />
+          </div>Back</a
+        >
+        <h1 class="text-4xl font-bold text-center">About Me</h1>
+
+        <p class="font-light">
+          👋 Hi there! I'm <strong>Joy Paulsen</strong>, a data scientist,
+          engineer, and creative technologist based in Minneapolis, MN. I care
+          deeply about building things that matter with precision and quality.
+
+          <!-- especially when it comes to <strong
+            >climate</strong
+          >, <strong>sustainability</strong>, and using <strong>data</strong> to
+          drive positive change. -->
+        </p>
+
+        <div class="flex justify-center mb-6">
+          <img src="/images/me.jpg" alt="Joy Paulsen" class="w-full max-w-md" />
+        </div>
+
+        <p class="font-light">
+          I'm currently a Lead Data Scientist working in personalization and
+          machine learning at Target. Outside of the 9-5, my other professional
+          interests include mission-driven work focused on the <strong
+            >energy transition</strong
+          >, <strong>sustainability</strong>, and <strong>climate action</strong
+          >.
+        </p>
+
+        <!-- <h2 class="text-2xl font-semibold">Background</h2> -->
+
+        <h2 class="text-2xl font-semibold">Work</h2>
+
+        <p class="font-light">
+          My team at Target builds automated systems to classify products into
+          semantically meaningful themes. Previously, I worked on a
+          cross-functional team developing performant streaming applications for
+          real-time inference that was used to enhance web and mobile UX.
+          Additionally, I have worked on both traditional and deep
+          learning-based recommendation systems integrated into several
+          different products during my time at Target.
+        </p>
+
+        <p class="font-light">
+          Before that, I was a member of the wonderful data science team at C.H.
+          Robinson, a third-party logistics (3PL) provider. I ended my time
+          there leading a team focused on building fast recommentation systems
+          and search engine capabilities for their flagship app. I started my
+          first few years there focusing on time-series analysis, pricing, and
+          demand forecasting.
+        </p>
+
+        <!-- <h2 class="text-2xl font-semibold">Interests</h2>
+        <ul class="list-disc list-inside font-light">
+          <li>Turning complex data into visual narratives</li>
+          <li>Exploring clean energy systems</li>
+          <li>Computational photography and image science</li>
+          <li>Making climate data actionable</li>
+          <li>Building smart tools with AI (thoughtfully)</li>
+        </ul> -->
+
+        <!-- <h2 class="text-2xl font-semibold">Projects</h2>
+        <ul class="space-y-2 font-light">
+          <li>
+            <strong>Daily Grid</strong>: Real-time US electricity generation
+            dashboard
+          </li>
+          <li>
+            <strong>Meltwater Archives</strong>: Narrative project visualizing
+            humanity’s carbon history
+          </li>
+          <li>
+            <strong>Deconvoluted</strong>: Blog about computational photography
+            and image science
+          </li>
+        </ul> -->
+
+        <h2 class="text-2xl font-semibold">Let’s Connect</h2>
+        <p class="font-light">
+          I’d love to connect if you’re working at the intersection of <strong
+            >data</strong
+          >, <strong>climate</strong>, and <strong>design</strong>.
+        </p>
+        <p class="font-light">
+          Head back to the <a href="/" class="text-base underline">home page</a>
+          for the best ways of contacting me.
+        </p>
+
+        <h2 class="text-2xl font-semibold">Meta</h2>
+
+        <p class="font-light">
+          This site is built with Astro and Tailwind CSS, and is hosted on
+          Vercel. You can check out the code here. The animation on the home
+          page is made with D3.js and shows the histogram of random samples
+          drawn from a normal distribution - every instance is different!
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <style>
+    /* h1 {
+    border-bottom: 1px solid #452bd7;
+  } */
+    strong {
+      color: #452bd7;
+      font-weight: 600;
+    }
+
+    a.button {
+      color: white;
+      /* background: #5f4275; */
+      /* background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%); */
+      background: linear-gradient(45.21deg, #6f32ff 0%, #21d5a2 100%);
+      box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.9);
+      /* box-shadow: inset -2px -5px 0 rgba(0, 0, 0, 0.24); */
+      border: 1px solid #000;
+    }
+  </style>
+</Layout>
