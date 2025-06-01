@@ -1,22 +1,3 @@
-// import * as d3 from "d3";
-
-// export function initChart({ containerId }) {
-//   const container = document.querySelector(containerId);
-//   if (!container) return;
-
-//   const svg = d3.select(container)
-//     .append("svg")
-//     .attr("width", 300)
-//     .attr("height", 150);
-
-//   svg.append("circle")
-//     .attr("cx", 150)
-//     .attr("cy", 75)
-//     .attr("r", 50)
-//     .style("fill", "steelblue");
-// }
-
-
 import * as d3 from "d3";
 
 const SAMPLE_SIZE = 200;

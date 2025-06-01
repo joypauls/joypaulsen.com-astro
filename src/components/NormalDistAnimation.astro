@@ -5,6 +5,6 @@ const { id = "chart-wrapper" } = Astro.props;
 <div id={id} class="w-fit"></div>
 
 <script type="module">
-  import { initChart } from "../src/scripts/chart-animation.js";
+  import { initChart } from "../scripts/chart-animation.js";
   initChart({ containerId: "#chart-wrapper" });
 </script>

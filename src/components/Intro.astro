@@ -2,7 +2,7 @@
 import astroLogo from "../assets/astro.svg";
 import background from "../assets/background.svg";
 import NormalDistChart from "../components/NormalDistAnimation.astro";
-import VoltageAnimation from "../components/VoltageAnimation.astro";
+// import VoltageAnimation from "../components/VoltageAnimation.astro";
 ---
 
 <div class="h-full">
@@ -17,7 +17,7 @@ import VoltageAnimation from "../components/VoltageAnimation.astro";
     </div>
     <section
       id="links"
-      class="flex flex-col items-center min-w-[300px] gap-3 mb-8 font-semibold"
+      class="flex flex-col items-center min-w-[300px] gap-3 mb-4 font-semibold"
     >
       <a
         class="button w-full flex justify-center rounded-full"
@@ -51,10 +51,11 @@ import VoltageAnimation from "../components/VoltageAnimation.astro";
 
 <style>
   /* h1 {
-    color: #5f4275;
+    color: #4c3f6b;
   }
+
   p {
-    color: #5f4275;
+    color: #4c3f6b;
   } */
 
   #background {
@@ -88,9 +89,9 @@ import VoltageAnimation from "../components/VoltageAnimation.astro";
     /* background: #5f4275; */
     /* background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%); */
     background: linear-gradient(83.21deg, #6f32ff 0%, #21d5a2 100%);
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.9);
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
     /* box-shadow: inset -2px -5px 0 rgba(0, 0, 0, 0.24); */
-    border: 1px solid #000;
+    border: 2px solid #4c3f6b;
   }
 
   #links a.button:hover {
@@ -103,10 +104,6 @@ import VoltageAnimation from "../components/VoltageAnimation.astro";
     font-weight: normal;
     color: #111827;
     font-size: 20px;
-  }
-
-  p {
-    color: #4b5563;
   }
 
   .box {
