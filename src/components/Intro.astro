@@ -3,6 +3,10 @@ import astroLogo from "../assets/astro.svg";
 import background from "../assets/background.svg";
 import NormalDistChart from "../components/NormalDistAnimation.astro";
 // import VoltageAnimation from "../components/VoltageAnimation.astro";
+// import { Github } from "lucide-react";
+import Github from "../icons/github.svg";
+import LinkedIn from "../icons/linkedin.svg";
+import Email from "../icons/email.svg";
 ---
 
 <div class="h-full">
@@ -20,20 +24,34 @@ import NormalDistChart from "../components/NormalDistAnimation.astro";
       class="flex flex-col items-center min-w-[300px] gap-3 mb-4 font-semibold"
     >
       <a
-        class="button w-full flex justify-center rounded-none"
+        class="button w-full flex justify-center items-center rounded-none"
         href="https://docs.astro.build">About Me</a
       >
       <a
-        class="button w-full flex justify-center rounded-none"
+        class="button w-full flex justify-center items-center rounded-none"
         href="https://docs.astro.build">Blog</a
       >
       <a
-        class="button w-full flex justify-center rounded-none"
-        href="https://docs.astro.build">Github</a
+        class="button w-full flex justify-center items-center rounded-none"
+        href="https://docs.astro.build"
+      >
+        <div class="w-5 h-5 mr-4">
+          <Github style="height: 100%; width: 100%;" />
+        </div>Github</a
       >
       <a
-        class="button w-full flex justify-center rounded-none"
-        href="https://docs.astro.build">LinkedIn</a
+        class="button w-full flex justify-center items-center rounded-none"
+        href="https://docs.astro.build"
+        ><div class="w-5 h-5 mr-4">
+          <LinkedIn style="height: 100%; width: 100%;" />
+        </div>LinkedIn</a
+      >
+      <a
+        class="button w-full flex justify-center items-center rounded-none"
+        href="https://docs.astro.build"
+        ><div class="w-5 h-5 mr-4">
+          <Email style="height: 100%; width: 100%;" />
+        </div>Email</a
       >
       <!-- <a href="https://astro.build/chat"
           >Join our Discord <svg
