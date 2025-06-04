@@ -1,0 +1,59 @@
+---
+const {
+  href,
+  label,
+  icon: Icon = null,
+  className = "",
+  fullWidth = true,
+} = Astro.props;
+
+const isExternal = href.startsWith("http");
+const widthClass = fullWidth ? "w-full" : "w-fit";
+---
+
+<a
+  href={href}
+  class={`button ${widthClass} flex items-center justify-center rounded-none group gap-3 py-3 px-4 ${className}`}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+  aria-label={label}
+>
+  {
+    Icon && (
+      <div class="w-6 h-6">
+        <Icon class="w-full h-full transition-transform group-hover:translate-x-1" />
+      </div>
+    )
+  }
+  <div class="flex flex-col text-left">
+    <span>{label}</span>
+  </div>
+</a>
+
+<style>
+  a {
+    /* padding: 10px 12px; */
+    color: #111827;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: rgb(78, 80, 86);
+  }
+
+  a.button {
+    color: white;
+    /* background: #5f4275; */
+    /* background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%); */
+    background: linear-gradient(45.21deg, #6f32ff 0%, #21d5a2 100%);
+    box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.9);
+    /* box-shadow: inset -2px -5px 0 rgba(0, 0, 0, 0.24); */
+    border: 1px solid #000;
+  }
+
+  a.button:hover {
+    color: rgb(220, 220, 220);
+    /* box-shadow: none; */
+  }
+</style>

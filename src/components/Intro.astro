@@ -2,11 +2,12 @@
 import astroLogo from "../assets/astro.svg";
 import background from "../assets/background.svg";
 import NormalDistChart from "../components/NormalDistAnimation.astro";
-// import VoltageAnimation from "../components/VoltageAnimation.astro";
 // import { Github } from "lucide-react";
-import Github from "../icons/github.svg";
-import LinkedIn from "../icons/linkedin.svg";
-import Email from "../icons/email.svg";
+// import Github from "../icons/github.svg";
+// import LinkedIn from "../icons/linkedin.svg";
+// import Email from "../icons/email.svg";
+import LinkList from "../components/LinkList.astro";
+import { links } from "../links";
 ---
 
 <div class="h-full">
@@ -19,41 +20,8 @@ import Email from "../icons/email.svg";
       <h1 class="text-4xl font-extrabold">Joy Paulsen</h1>
       <p class="text-lg font-thin">Data Scientist, Engineer, Builder</p>
     </div>
-    <section
-      id="links"
-      class="flex flex-col items-center min-w-[300px] gap-3 mb-4 text-lg font-semibold"
-    >
-      <a
-        class="button w-full flex justify-center items-center rounded-none"
-        href="/about">About Me</a
-      >
-      <a
-        class="button w-full flex justify-center items-center rounded-none"
-        href="https://docs.astro.build">Blog</a
-      >
-      <a
-        class="button w-full flex justify-center items-center rounded-none"
-        href="https://github.com/joypauls"
-      >
-        <div class="w-6 h-6 mr-4">
-          <Github style="height: 100%; width: 100%;" />
-        </div>Github</a
-      >
-      <a
-        class="button w-full flex justify-center items-center rounded-none"
-        href="https://www.linkedin.com/in/joy-paulsen-0bb55419b/"
-        ><div class="w-6 h-6 mr-4">
-          <LinkedIn style="height: 100%; width: 100%;" />
-        </div>LinkedIn</a
-      >
-      <a
-        class="button w-full flex justify-center items-center rounded-none"
-        href="mailto:hello@joypauls.dev"
-        ><div class="w-6 h-6 mr-4">
-          <Email style="height: 100%; width: 100%;" />
-        </div>Email</a
-      >
-    </section>
+
+    <LinkList links={links} />
   </main>
 </div>
 

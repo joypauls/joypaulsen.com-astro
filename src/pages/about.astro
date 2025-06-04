@@ -1,19 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Left from "../icons/left.svg";
+import LinkButton from "../components/LinkButton.astro";
 ---
 
 <Layout title="About Me">
   <div class="flex flex-col items-center justify-center min-h-screen">
     <div class="w-full max-w-4xl px-6 py-8">
       <section class="space-y-6 mb-24">
-        <a
-          class="button flex justify-center items-center rounded-none py-2 px-6 w-fit"
+        <LinkButton
+          label="Back"
           href="/"
-          ><div class="w-5 h-5 mr-1">
-            <Left style="height: 100%; width: 100%;" />
-          </div>Back</a
-        >
+          icon={Left}
+          fullWidth={false}
+          className="text-black"
+        />
+
         <h1 class="text-4xl font-bold text-center">About Me</h1>
 
         <p class="font-light">
@@ -32,13 +34,21 @@ import Left from "../icons/left.svg";
           <img src="/images/me.jpg" alt="Joy Paulsen" class="w-full max-w-sm" />
         </div>
 
-        <p class="font-light">
+        <!-- <p class="font-light">
           I'm currently a Lead Data Scientist working in personalization and
           machine learning at Target. Outside of the 9-5, some of my other
           professional interests include science communication, data
           visualization, and mission-driven work focused on <strong
             >sustainability</strong
           >, <strong>energy</strong>, and <strong>climate</strong>.
+        </p> -->
+
+        <p class="font-light">
+          I'm currently a Lead Data Scientist working in personalization and
+          machine learning at Target. Outside of the 9-5, some of my other
+          professional interests include science communication, data
+          visualization, and mission-driven work focused on sustainability,
+          energy, and climate. More of that coming soon!
         </p>
 
         <!-- <h2 class="text-2xl font-semibold">Background</h2> -->
@@ -58,10 +68,9 @@ import Left from "../icons/left.svg";
         <p class="font-light">
           Before that, I was a member of the data science team at C.H. Robinson,
           a third-party logistics (3PL) provider. I ended my time there leading
-          a team focused on building fast recommentation systems and search
-          engine capabilities for their flagship app. I started my first few
-          years there specializing on time-series analysis, pricing, and demand
-          forecasting.
+          a team focused on building recommentation systems and search engine
+          capabilities for their flagship app. My first few years centered
+          around time-series analysis, pricing forecasts, and market dynamics.
         </p>
 
         <!-- <h2 class="text-2xl font-semibold">Interests</h2>
@@ -96,7 +105,10 @@ import Left from "../icons/left.svg";
           >, <strong>climate</strong>, and <strong>design</strong>.
         </p> -->
         <p class="font-light">
-          Head back to the <a href="/" class="text-base underline">home page</a>
+          Thanks for being here! Head back to the <a
+            href="/"
+            class="text-base underline">home page</a
+          >
           for the best ways of contacting me.
         </p>
 
@@ -123,16 +135,6 @@ import Left from "../icons/left.svg";
     strong {
       color: #452bd7;
       font-weight: 600;
-    }
-
-    a.button {
-      color: white;
-      /* background: #5f4275; */
-      /* background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%); */
-      background: linear-gradient(45.21deg, #6f32ff 0%, #21d5a2 100%);
-      box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.9);
-      /* box-shadow: inset -2px -5px 0 rgba(0, 0, 0, 0.24); */
-      border: 1px solid #000;
     }
 
     img {
