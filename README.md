@@ -1,4 +1,4 @@
-# Astro Starter Kit: Basics
+# Personal Landing Page (joypaulsen.com)
 
 ```sh
 npm create astro@latest -- --template basics
