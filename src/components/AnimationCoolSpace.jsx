@@ -10,7 +10,7 @@ const CONFIG = {
     // subdivisions: 3,
     subdivisions: 15,
     color: '#6356ee',
-    opacity: 0.05,
+    opacity: 0.08,
     rotationSpeed: {
       y: 0.1,
       xAmplitude: 0.2,
