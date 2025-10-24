@@ -7,10 +7,9 @@ import { useMemo, useRef } from "react";
 const CONFIG = {
   sphere: {
     radius: 2.2,
-    // subdivisions: 3,
-    subdivisions: 15,
+    subdivisions: 30,
     color: '#6356ee',
-    opacity: 0.08,
+    opacity: 0.05,
     rotationSpeed: {
       y: 0.1,
       xAmplitude: 0.2,
@@ -18,7 +17,7 @@ const CONFIG = {
     },
     distortion: {
       distort: 0.4,
-      speed: 1.3,
+      speed: 1.2,
     },
   },
   particles: {
