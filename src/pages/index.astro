@@ -1,23 +1,27 @@
 ---
 import Intro from "../components/Intro.astro";
 import Layout from "../layouts/Layout.astro";
-
-import HeroAnimationSphere from "../components/HeroAnimationSphere.jsx";
-import HeroAnimationNetwork from "../components/HeroAnimationNetwork.jsx";
-import HeroCanvas from "../components/AnimationCoolSpace.jsx";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { InteractiveHeroCanvas } from "../components/AnimationCoolSpace.jsx";
 ---
 
-<!-- <HeroAnimationSphere client:load /> -->
-<HeroCanvas client:load />
-<!-- <HeroAnimationNetwork
-  nodeCount={100}
-  lineOpacity={0.85}
-  nodeSize={0.2}
-  client:load
-/> -->
 <Layout>
-  <Intro />
+  <!-- Mobile: content only, no animation -->
+  <div class="lg:hidden h-screen w-full overflow-hidden flex items-center justify-center px-6">
+    <div class="w-full max-w-md mx-auto text-center [&_section]:w-full [&_section]:max-w-none [&_a]:w-full">
+      <Intro />
+    </div>
+  </div>
+
+  <!-- Desktop: side by side with interactive animation -->
+  <div class="hidden lg:flex h-screen w-full overflow-hidden items-center justify-center px-12 lg:px-24 -mt-8">
+    <!-- inner wrapper: stretch both columns to the same height -->
+    <div class="flex items-stretch gap-12 max-h-[min(70vh,520px)]">
+      <div class="max-w-sm flex flex-col min-h-0">
+        <Intro />
+      </div>
+      <div class="self-stretch min-h-0 min-w-0">
+        <InteractiveHeroCanvas client:load />
+      </div>
+    </div>
+  </div>
 </Layout>

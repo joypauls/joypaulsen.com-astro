@@ -1,8 +1,29 @@
 @import "tailwindcss";
 
-#chart-bins {
-    fill: #452bd7;
-    /* fill-opacity: 0.0; */
-    /* opacity: 0.9; */
-    /* stroke: #1b042d */
+:root {
+  /* Warm organic color tokens */
+  --bg-primary: #faf8f5;
+  --bg-secondary: #f5f0e8;
+  --text-primary: #2d2a26;
+  --text-secondary: #6b6560;
+  --text-muted: #9a938b;
+  --accent: #c65d3b;
+  --accent-hover: #a84a2d;
+  --border: #e5ddd3;
+}
+
+html {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--accent);
+  color: white;
 }

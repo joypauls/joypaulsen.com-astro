@@ -1,12 +1,17 @@
 ---
 import LinkButton from "./LinkButton.astro";
-const { links } = Astro.props;
-const isExternal = (href) => href.startsWith("http");
+interface LinkProps {
+  href: string;
+  label: string;
+  icon?: any;
+  className?: string;
+}
+const { links } = Astro.props as { links: LinkProps[] };
 ---
 
 <section
   id="links"
-  class="flex flex-col items-center min-w-[300px] gap-3 mb-4 text-lg font-semibold"
+  class="flex flex-col gap-3 w-full max-w-sm"
 >
-  {links.map((props) => <LinkButton {...props} />)}
+  {links.map((props: LinkProps) => <LinkButton {...props} />)}
 </section>

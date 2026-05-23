@@ -4,56 +4,85 @@ const {
   label,
   icon: Icon = null,
   className = "",
-  fullWidth = true,
 } = Astro.props;
 
 const isExternal = href.startsWith("http");
-const widthClass = fullWidth ? "w-full" : "w-fit";
 ---
 
 <a
   href={href}
-  class={`button ${widthClass} flex items-center justify-center rounded-none group gap-3 py-3 px-4 ${className}`}
+  class={`gradient-btn group flex items-center gap-3 py-3.5 px-5 ${className}`}
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noopener noreferrer" : undefined}
   aria-label={label}
 >
   {
     Icon && (
-      <div class="w-6 h-6">
-        <Icon class="w-full h-full transition-transform group-hover:translate-x-1" />
+      <div class="icon-box w-5 h-5">
+        <Icon class="w-full h-full" />
       </div>
     )
   }
-  <div class="flex flex-col text-left">
-    <span>{label}</span>
-  </div>
+  <span class="btn-text">{label}</span>
+  {
+    isExternal && (
+      <svg 
+        class="external-arrow w-4 h-4 ml-auto opacity-60 group-hover:opacity-100" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width={1.5} d="M7 17L17 7M17 7H7M17 7V17" />
+      </svg>
+    )
+  }
 </a>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap');
+
   a {
-    /* padding: 10px 12px; */
-    color: #111827;
     text-decoration: none;
-    transition: color 0.2s;
+    position: relative;
+    overflow: hidden;
   }
 
-  a:hover {
-    color: rgb(78, 80, 86);
+  .gradient-btn {
+    background: linear-gradient(135deg, #faf8f5 0%, #f2ebe2 100%);
+    border-radius: 4px;
+    border: 1px solid rgba(198, 93, 59, 0.25);
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
-  a.button {
-    color: white;
-    /* background: #5f4275; */
-    /* background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%); */
-    background: linear-gradient(45.21deg, #6f32ff 0%, #21d5a2 100%);
-    box-shadow: 1px 2px 5px rgba(20, 20, 20, 0.9);
-    /* box-shadow: inset -2px -5px 0 rgba(0, 0, 0, 0.24); */
-    border: 1px solid #000;
+  .gradient-btn:hover {
+    background: linear-gradient(135deg, #f7ede8 0%, #edd8cc 100%);
+    border-color: rgba(198, 93, 59, 0.5);
+    transform: translateY(-1px);
   }
 
-  a.button:hover {
-    color: rgb(220, 220, 220);
-    /* box-shadow: none; */
+  .icon-box {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .gradient-btn:hover .icon-box {
+    color: #c65d3b;
+  }
+
+  .btn-text {
+    font-family: 'Figtree', system-ui, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .external-arrow {
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+  }
+
+  .gradient-btn:hover .external-arrow {
+    color: #c65d3b;
+    transform: translate(1px, -1px);
   }
 </style>
