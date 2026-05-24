@@ -13,15 +13,34 @@ import { InteractiveHeroCanvas } from "../components/AnimationCoolSpace.jsx";
   </div>
 
   <!-- Desktop: side by side with interactive animation -->
-  <div class="hidden lg:flex h-screen w-full overflow-hidden items-center justify-center px-12 lg:px-24 -mt-8">
-    <!-- inner wrapper: stretch both columns to the same height -->
-    <div class="flex items-stretch gap-12 max-h-[min(70vh,520px)]">
-      <div class="max-w-sm flex flex-col min-h-0">
-        <Intro />
+  <div class="hidden lg:flex h-screen w-full overflow-hidden items-center justify-center gap-12 px-12 lg:px-24 -mt-8">
+    <div id="intro-col" class="max-w-sm flex flex-col shrink-0">
+      <Intro />
+    </div>
+    <!-- Frame: explicit square size, no stretch dependency -->
+    <div id="anim-col" class="shrink-0 relative" style="width: 0; height: 0;">
+      <!-- Static placeholder holds space before React hydrates -->
+      <div id="anim-placeholder" style="position:absolute;inset:0;border:1px solid rgba(198,93,59,0.55);border-radius:4px;background:#faf8f5;display:flex;align-items:center;justify-content:center;">
+        <div style="width:28px;height:28px;border:2px solid rgba(198,93,59,0.15);border-top-color:rgba(198,93,59,0.5);border-radius:50%;animation:spin 1s linear infinite;"></div>
       </div>
-      <div class="self-stretch min-h-0 min-w-0">
+      <!-- React island absolutely fills the same space -->
+      <div style="position:absolute;inset:0;">
         <InteractiveHeroCanvas client:load />
       </div>
     </div>
   </div>
 </Layout>
+
+<script is:inline>
+  function syncAnimFrame() {
+    const intro = document.getElementById('intro-col');
+    const anim = document.getElementById('anim-col');
+    if (!intro || !anim) return;
+    const h = intro.offsetHeight;
+    anim.style.width = h + 'px';
+    anim.style.height = h + 'px';
+  }
+  syncAnimFrame();
+  document.fonts.ready.then(syncAnimFrame);
+  window.addEventListener('resize', syncAnimFrame);
+</script>

@@ -1,7 +1,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
 
 // Simplified configuration focusing on mesh
 const CONFIG = {
@@ -9,7 +9,7 @@ const CONFIG = {
     radius: 1.8,
     subdivisions: 15,
     color: '#c65d3b',
-    opacity: 0.12,
+    opacity: 0.2,
     rotationSpeed: {
       y: 0.1,
       xAmplitude: 0.2,
@@ -29,31 +29,110 @@ const CONFIG = {
 // Clean wireframe sphere with distortion
 function WireSphere({ config = CONFIG.sphere }) {
   const meshRef = useRef();
-  
+  const wireRef = useRef();
+  const matRef = useRef();
+  const configRef = useRef(config);
+  useEffect(() => { configRef.current = config; }, [config]);
+
+  const uniforms = useMemo(() => ({
+    uColor: { value: new THREE.Color(config.color) },
+    uTime: { value: 0 },
+    uDistort: { value: config.distortion.distort },
+    uSpeed: { value: config.distortion.speed },
+  }), []);
+
   useFrame((state, dt) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += dt * config.rotationSpeed.y;
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * config.rotationSpeed.xFrequency) * config.rotationSpeed.xAmplitude;
-    }
+    const cfg = configRef.current;
+    const ry = dt * cfg.rotationSpeed.y;
+    const rx = Math.sin(state.clock.elapsedTime * cfg.rotationSpeed.xFrequency) * cfg.rotationSpeed.xAmplitude;
+    if (meshRef.current) { meshRef.current.rotation.y += ry; meshRef.current.rotation.x = rx; }
+    if (wireRef.current) { wireRef.current.rotation.y += ry; wireRef.current.rotation.x = rx; }
+    uniforms.uTime.value = state.clock.elapsedTime;
+    uniforms.uDistort.value = cfg.distortion.distort;
+    uniforms.uSpeed.value = cfg.distortion.speed;
   });
 
   return (
+    <>
     <mesh ref={meshRef}>
-      <icosahedronGeometry args={[config.radius, config.subdivisions]} />
-      <MeshDistortMaterial
-        wireframe
+      <icosahedronGeometry args={[config.radius, Math.max(config.subdivisions, 20)]} />
+      <shaderMaterial
+        ref={matRef}
         transparent
-        color={config.color}
-        opacity={config.opacity}
-        distort={config.distortion.distort}
-        speed={config.distortion.speed}
-        roughness={0}
-        metalness={0}
-        emissive={config.color}
-        emissiveIntensity={0.3}
         side={THREE.FrontSide}
+        depthWrite={false}
+        uniforms={uniforms}
+        vertexShader={`
+          uniform float uTime;
+          uniform float uDistort;
+          uniform float uSpeed;
+          varying vec3 vNormal;
+          varying vec3 vViewDir;
+          varying vec3 vPos;
+          void main() {
+            float t = uTime * uSpeed * 0.4;
+            vec3 pos = position;
+            pos += normal * (
+              sin(pos.y * 2.1 + t * 1.1) * cos(pos.z * 1.7 + t * 0.9) +
+              sin(pos.z * 1.9 + t * 0.7) * cos(pos.x * 2.3 + t * 1.3) +
+              sin(pos.x * 1.5 + t * 1.4) * cos(pos.y * 2.0 + t * 0.8)
+            ) * uDistort * 0.33;
+            vPos = pos;
+            vNormal = normalize(normalMatrix * normal);
+            vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+            vViewDir = normalize(-mvPos.xyz);
+            gl_Position = projectionMatrix * mvPos;
+          }
+        `}
+        fragmentShader={`
+          uniform vec3 uColor;
+          varying vec3 vNormal;
+          varying vec3 vViewDir;
+          void main() {
+            float fresnel = 1.0 - abs(dot(normalize(vNormal), normalize(vViewDir)));
+            float luma = dot(uColor, vec3(0.299, 0.587, 0.114));
+            vec3 color = mix(vec3(luma), uColor, 0.75);
+            float alpha = pow(fresnel, 3.0) * 0.5;
+            gl_FragColor = vec4(color, alpha);
+          }
+        `}
       />
     </mesh>
+    <mesh ref={wireRef}>
+      <icosahedronGeometry args={[config.radius, config.subdivisions]} />
+      <shaderMaterial
+        wireframe
+        transparent
+        side={THREE.FrontSide}
+        depthWrite={false}
+        uniforms={uniforms}
+        vertexShader={`
+          uniform float uTime;
+          uniform float uDistort;
+          uniform float uSpeed;
+          void main() {
+            float t = uTime * uSpeed * 0.4;
+            vec3 pos = position;
+            vec3 n = normal;
+            pos += n * (
+              sin(pos.y * 2.1 + t * 1.1) * cos(pos.z * 1.7 + t * 0.9) +
+              sin(pos.z * 1.9 + t * 0.7) * cos(pos.x * 2.3 + t * 1.3) +
+              sin(pos.x * 1.5 + t * 1.4) * cos(pos.y * 2.0 + t * 0.8)
+            ) * uDistort * 0.33;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+          }
+        `}
+        fragmentShader={`
+          uniform vec3 uColor;
+          void main() {
+            float luma = dot(uColor, vec3(0.299, 0.587, 0.114));
+            vec3 color = mix(vec3(luma), uColor, 0.75);
+            gl_FragColor = vec4(color, 0.2);
+          }
+        `}
+      />
+    </mesh>
+    </>
   );
 }
 
@@ -116,7 +195,7 @@ export default function HeroCanvas({ config = CONFIG, isBackground = true }) {
           fov: config.camera.fov, 
           position: config.camera.position 
         }} 
-        dpr={[1, 2]}
+        dpr={[1, 4]}
         gl={{ 
           alpha: true, 
           antialias: true,
@@ -146,9 +225,19 @@ export function InteractiveHeroCanvas() {
   const [detail, setDetail] = useState('medium');
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const distortionValues = { low: 0.2, medium: 0.4, high: 0.6 };
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const placeholder = document.getElementById('anim-placeholder');
+    if (placeholder) placeholder.style.display = 'none';
+    // Small delay to let WebGL context initialize before showing canvas
+    const t = setTimeout(() => setReady(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
+  const distortionValues = { low: 0.2, medium: 0.5, high: 0.8 };
   const speedValues = { slow: 0.05, medium: 0.3, fast: 0.8 };
-  const detailValues = { low: 8, medium: 15, high: 25 };
+  const detailValues = { low: 8, medium: 15, high: 22 };
 
   const config = {
     sphere: {
@@ -184,7 +273,7 @@ export function InteractiveHeroCanvas() {
             style={{
               padding: '3px 8px',
               fontSize: '11px',
-              border: value === opt ? '1px solid #c65d3b' : '1px solid rgba(198, 93, 59, 0.25)',
+              border: value === opt ? '1px solid #c65d3b' : '1px solid rgba(198, 93, 59, 0.55)',
               background: value === opt ? 'rgba(198, 93, 59, 0.15)' : 'transparent',
               color: value === opt ? '#c65d3b' : '#6b6560',
               borderRadius: '3px',
@@ -205,20 +294,26 @@ export function InteractiveHeroCanvas() {
       position: 'relative',
       height: '100%',
       aspectRatio: '1 / 1',
-      border: '1px solid rgba(198, 93, 59, 0.25)',
+      border: '1px solid rgba(198, 93, 59, 0.55)',
       borderRadius: '4px',
       overflow: 'hidden',
       background: '#faf8f5',
     }}>
-      {/* Canvas fills the box */}
-      <Canvas
-        camera={{ fov: 55, position: [0, 0, 6] }}
-        dpr={[1, 2]}
-        gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-        style={{ width: '100%', height: '100%' }}
-      >
-        <WireSphere config={config.sphere} />
-      </Canvas>
+      {!ready && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '28px', height: '28px', border: '2px solid rgba(198,93,59,0.15)', borderTopColor: 'rgba(198,93,59,0.5)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+        </div>
+      )}
+      {ready && (
+        <Canvas
+          camera={{ fov: 55, position: [0, 0, 6] }}
+          dpr={[1, 4]}
+          gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <WireSphere config={config.sphere} />
+        </Canvas>
+      )}
 
       {/* Gear button in top-right corner */}
       <button
@@ -233,7 +328,7 @@ export function InteractiveHeroCanvas() {
           alignItems: 'center',
           justifyContent: 'center',
           background: settingsOpen ? 'rgba(198, 93, 59, 0.15)' : 'rgba(250, 248, 245, 0.7)',
-          border: '1px solid rgba(198, 93, 59, 0.25)',
+          border: '1px solid rgba(198, 93, 59, 0.55)',
           borderRadius: '4px',
           cursor: 'pointer',
           color: settingsOpen ? '#c65d3b' : '#9a938b',
@@ -252,7 +347,7 @@ export function InteractiveHeroCanvas() {
           right: '10px',
           padding: '12px 14px',
           background: 'rgba(250, 248, 245, 0.92)',
-          border: '1px solid rgba(198, 93, 59, 0.25)',
+          border: '1px solid rgba(198, 93, 59, 0.55)',
           borderRadius: '4px',
           backdropFilter: 'blur(8px)',
           zIndex: 10,
