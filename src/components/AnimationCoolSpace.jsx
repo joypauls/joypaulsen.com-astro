@@ -224,6 +224,7 @@ export function InteractiveHeroCanvas() {
   const [speed, setSpeed] = useState('medium');
   const [detail, setDetail] = useState('medium');
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const [ready, setReady] = useState(false);
 
@@ -273,7 +274,7 @@ export function InteractiveHeroCanvas() {
             style={{
               padding: '3px 8px',
               fontSize: '11px',
-              border: value === opt ? '1px solid #c65d3b' : '1px solid rgba(198, 93, 59, 0.55)',
+              border: value === opt ? '1px solid #c65d3b' : '1px solid rgba(210, 75, 50, 0.55)',
               background: value === opt ? 'rgba(198, 93, 59, 0.15)' : 'transparent',
               color: value === opt ? '#c65d3b' : '#6b6560',
               borderRadius: '3px',
@@ -294,7 +295,7 @@ export function InteractiveHeroCanvas() {
       position: 'relative',
       height: '100%',
       aspectRatio: '1 / 1',
-      border: '1px solid rgba(198, 93, 59, 0.55)',
+      border: '1px solid rgba(210, 75, 50, 0.55)',
       borderRadius: '4px',
       overflow: 'hidden',
       background: '#faf8f5',
@@ -315,9 +316,56 @@ export function InteractiveHeroCanvas() {
         </Canvas>
       )}
 
+      {/* Info button in top-left corner */}
+      <button
+        onClick={() => { setInfoOpen(o => !o); setSettingsOpen(false); }}
+        style={{
+          position: 'absolute',
+          top: '10px',
+          left: '10px',
+          width: '28px',
+          height: '28px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: infoOpen ? 'rgba(198, 93, 59, 0.15)' : 'rgba(250, 248, 245, 0.7)',
+          border: '1px solid rgba(210, 75, 50, 0.55)',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          color: infoOpen ? '#c65d3b' : '#9a938b',
+          transition: 'all 0.2s ease',
+          fontSize: '13px',
+          fontWeight: '600',
+          fontFamily: 'Figtree, system-ui, sans-serif',
+          zIndex: 10,
+        }}
+      >
+        i
+      </button>
+
+      {/* Info panel */}
+      {infoOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '46px',
+          left: '10px',
+          width: '180px',
+          padding: '12px 14px',
+          background: 'rgba(250, 248, 245, 0.92)',
+          border: '1px solid rgba(210, 75, 50, 0.55)',
+          borderRadius: '4px',
+          backdropFilter: 'blur(8px)',
+          zIndex: 10,
+        }}>
+          <p style={{ margin: 0, fontSize: '11px', lineHeight: '1.6', color: '#6b6560', fontFamily: 'Figtree, system-ui, sans-serif' }}>
+            A 3D sphere that distorts and rotates in real time. No two moments look the same. Use the gear icon to adjust the speed, detail, and amount of distortion.
+          </p>
+        </div>
+      )}
+
       {/* Gear button in top-right corner */}
       <button
-        onClick={() => setSettingsOpen(o => !o)}
+        onClick={() => { setSettingsOpen(o => !o); setInfoOpen(false); }}
         style={{
           position: 'absolute',
           top: '10px',
@@ -328,7 +376,7 @@ export function InteractiveHeroCanvas() {
           alignItems: 'center',
           justifyContent: 'center',
           background: settingsOpen ? 'rgba(198, 93, 59, 0.15)' : 'rgba(250, 248, 245, 0.7)',
-          border: '1px solid rgba(198, 93, 59, 0.55)',
+          border: '1px solid rgba(210, 75, 50, 0.55)',
           borderRadius: '4px',
           cursor: 'pointer',
           color: settingsOpen ? '#c65d3b' : '#9a938b',
@@ -347,7 +395,7 @@ export function InteractiveHeroCanvas() {
           right: '10px',
           padding: '12px 14px',
           background: 'rgba(250, 248, 245, 0.92)',
-          border: '1px solid rgba(198, 93, 59, 0.55)',
+          border: '1px solid rgba(210, 75, 50, 0.55)',
           borderRadius: '4px',
           backdropFilter: 'blur(8px)',
           zIndex: 10,
